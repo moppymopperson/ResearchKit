@@ -192,6 +192,13 @@ NSNumberFormatterStyle ORKNumberFormattingStyleConvert(ORKNumberFormattingStyle 
                 } else {
                     value = @([sample.quantity doubleValueForUnit:unit]);
                 }
+                
+                
+                // Added for Interstage:
+                // Don't accept any data not recorded today
+                if (![[NSCalendar currentCalendar] isDateInToday:sample.endDate]) {
+                    value = nil;
+                }
             }
             handler(value, error);
         }];
